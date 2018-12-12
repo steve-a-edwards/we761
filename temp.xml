@@ -1,0 +1,14 @@
+<S:Envelope
+	xmlns:S='http://schemas.xmlsoap.org/soap/envelope/'>
+	<S:Body>
+		<dp:request
+			xmlns:dp='http://www.datapower.com/schemas/management'
+			domain='Admin-Utils'>
+			<dp:do-action>
+				<ExecConfig>
+					<URL>local:///scripts/import-export-utils/backup-scp.cfg</URL>
+				</ExecConfig>
+			</dp:do-action>
+		</dp:request>
+	</S:Body>
+</S:Envelope>
