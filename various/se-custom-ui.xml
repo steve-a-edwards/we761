@@ -1,0 +1,44 @@
+<!-- 
+From:
+- https://www.ibm.com/support/knowledgecenter/en/SS9H2Y_7.6.0/com.ibm.dp.doc/webgui_userinterfacecustomization_concept.html
+- https://www.ibm.com/support/knowledgecenter/en/SS9H2Y_7.6.0/com.ibm.dp.doc/webgui_templatecustomuifile_concept.html
+ -->
+
+<User-Interface xmlns="http://www.datapower.com/schemas/user-interface/1.0">
+
+<!-- Markup for the CLI prompt -->
+  <CustomPrompt>%s</CustomPrompt>
+
+<!-- Markup for GUI custom messages -->
+  <MarkupBanner type="pre-login" foreground-color="red" background-color="blue">
+    GUI pre-login message
+  </MarkupBanner>
+  <MarkupBanner type="post-login" foreground-color="blue" background-color="yellow">
+    GUI post-login pop up message
+  </MarkupBanner>
+  <MarkupBanner type="system-banner" location="header" foreground-color="green" background-color="red">
+    GUI system message - header
+  </MarkupBanner>
+  <MarkupBanner type="system-banner" location="footer" foreground-color="blue" background-color="yellow">
+    GUI system message - footer
+  </MarkupBanner>
+
+ <!-- If the following markup was outside of comments, the file would not
+      conform to the schema. Cannot define multiple system messages as the
+      header or footer.
+  <MarkupBanner type="system-banner">
+    GUI system message - header and footer
+  </MarkupBanner>
+ -->
+
+<!-- Markup for CLI custom messages -->
+  <TextBanner type="pre-login">
+    CLI pre-login message
+  </TextBanner>
+  <TextBanner type="post-login">
+    CLI post-login message
+  </TextBanner>
+  <TextBanner type="system-banner">
+    CLI system message
+  </TextBanner>
+</User-Interface>
