@@ -1,0 +1,22 @@
+WIP ...
+
+WE761 Crypto / SSL Exercise - Review / Explain
+
+mpgw DPAdmin
+
+StudentServerCP - created, but not used (_.3 on page 4-10)
+
+but CP DPAdminSSLProfile
+uses new ID Creds "StudentIdCred" which is built.
+
+(needs checking ...)
+===============================================================
+User Agent
+SSL proxy profile: ssl_proxy_profile_dpadmin
+- Reverse (Server) Crypto Profile: DPADminSSLProfile
+  - Identification Credentials: StudentIdCred (was idcred-...)
+
+Front Side Protocol: https_fsh_dpadmin
+- SSL proxy profile: ssl_proxy_profile_dpadmin
+  - Reverse (Server) Crypto Profile: DPADminSSLProfile
+     - Identification Credentials: StudentIdCred (was idcred-...)
