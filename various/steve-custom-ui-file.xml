@@ -1,0 +1,40 @@
+<!--
+	Upload file to store:
+	CLI:  to incorporate:
+		> system
+		>   custom-ui-file store:///steve-custom-ui-file.xml
+		>   exit
+	CLI: to remove:
+		> system
+		>  no custom-ui-file
+		>  exit
+	CLI: to test this file against XML Schema
+		> test schema store:///steve-custom-ui-file.xml store:///schemas/dp-user-interface.xsd
+-->
+<User-Interface xmlns="http://www.datapower.com/schemas/user-interface/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.datapower.com/schemas/user-interface/1.0 dp-user-interface.xsd">
+	<!-- Markup for the prompt extension to command line interface -->
+	<CustomPrompt>%s</CustomPrompt>
+	<!-- Markup for custom messages for the WebGUI interface -->
+	<MarkupBanner type="pre-login" foreground-color="red" background-color="yellow">
+WebGUI pre-login message from Steve
+</MarkupBanner>
+	<MarkupBanner type="post-login" foreground-color="blue" background-color="yellow">
+WebGUI post-login pop up message from Steve
+</MarkupBanner>
+	<MarkupBanner type="system-banner" location="header" foreground-color="green" background-color="red">
+WebGUI system message - header from Steve
+</MarkupBanner>
+	<MarkupBanner type="system-banner" location="footer" foreground-color="blue" background-color="yellow">
+WebGUI system message - footer from Steve
+</MarkupBanner>
+	<!-- Markup for custom messages for the command line interface -->
+	<TextBanner type="pre-login">
+Command line pre-login message from Steve
+</TextBanner>
+	<TextBanner type="post-login">
+Command line post-login message from Steve
+</TextBanner>
+	<TextBanner type="system-banner">
+Command line system message from Steve
+</TextBanner>
+</User-Interface>
