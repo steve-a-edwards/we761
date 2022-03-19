@@ -1,0 +1,11 @@
+<!-- XMI to get the config of a DataPower domain in XML.
+    Change the IP address, username / password, domain accordingly:
+        curl -k -u admin:admin -d @get-config.xml https://localhost:5550/service/mgmt/current
+-->
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+  <S:Body>
+    <dp:request xmlns:dp="http://www.datapower.com/schemas/management" domain="AAA-Context-Explore">
+      <dp:get-config/>	
+    </dp:request>
+  </S:Body>
+</S:Envelope>

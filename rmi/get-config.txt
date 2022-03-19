@@ -1,0 +1,3 @@
+Change the IP address, username / password, domain accordingly:
+
+curl -k -u admin:admin https://localhost:5554/mgmt/config/default/Domain/AAA-Context-Explore

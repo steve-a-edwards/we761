@@ -1,0 +1,25 @@
+{
+    "_links" : {
+    "self" : {"href" : "/mgmt/config/default/Domain/AAA-Context-Explore"},
+    "doc" : {"href" : "/mgmt/docs/config/Domain"}},
+    "Domain" : {"name" : "AAA-Context-Explore",
+    "mAdminState" : "enabled",
+    "UserSummary" : "Exploring AAA context usage",
+    "NeighborDomain" : {"value": "default",
+    "href" : "/mgmt/config/default/Domain/default"},
+    "FileMap" : {
+    "CopyFrom" : "on",
+    "CopyTo" : "on",
+    "Delete" : "on",
+    "Display" : "on",
+    "Exec" : "on",
+    "Subdir" : "on"},
+    "MonitoringMap" : {
+    "Audit" : "off",
+    "Log" : "off"},
+    "ConfigMode" : "local",
+    "ImportFormat" : "ZIP",
+    "LocalIPRewrite" : "on",
+    "MaxChkpoints" : 3,
+    "ConfigPermissionsMode" : "scope-domain"}
+}
