@@ -1,0 +1,91 @@
+
+2.1
+_2.1.c
+No need to "Configure the RBM settings for CLI"
+
+cd /home/localuser/labfiles/dp/mgmtInterface/
+
+curl -H "Content-Type: text/xml" --data-binary @createDeveloperResources.xml https://192.168.100.201:5550/service/mgmt/current -u sysadmin:sysadminpassw0rd -k
+
+Needs to
+# switch domain student01_domain
+"__ a.The .zip file is imported into the new domain you created in the previous section; ensure that you are logged on to the studentnn domain.
+idg[studentnn_domain] #"
+
+ping 192.168.100.1 80
+
+test tcp-connection 192.168.100.1 80
+
+co
+copy http://192.168.100.1/dp/DPCert.cer cert:///DPCert.cer
+copy http://192.168.100.1/dp/Alice-sscert.pem cert:///Alice-sscert.pem
+copy http://192.168.100.1/dp/Alice-privkey.pem cert:///Alice-privkey.pem
+
+Alice-sscert.pem: NotAfter - 2028-01-13T23:41:05Z
+
+import-package DPAdminPackage
+source-url http://192.168.100.1/dp/DPAdmin.zip
+import-format ZIP
+exit
+
+import-execute DPAdminPackage
+
+show mpgw DPAdmin
+
+source-https https_fsh_dpadmin
+port 10011
+
+Browser: http://192.168.100.1/dp/searchConfig.html
+
+Form:
+•DP XML Management IP Address: 192.168.100.201
+•DP XML Management Port: 5550
+•DP Service Host: 192.168.100.201
+•DP Service Port: 10011
+•Domain: default
+•Search for: User
+•Object name: student01
+
+cd /home/localuser/labfiles/dp/mgmtInterface/
+curl -H "Content-Type: text/xml" --data-binary @set-config.xml https://192.168.100.201:5550/service/mgmt/current -u sysadmin:sysadminpassw0rd -k
+
+Page 2-31  IGNORE using browser on DPAdmin
+_3 this section only gets you to use the above to see current config.
+Instead, change file 
+get-config.xml
+/home/localuser/labfiles/dp/XML
+to replace "<!-- Insert SOAP request here-->"
+with "<dp:get-config class="UserGroup" name="student01_developer_group"/>"
+
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope
+	xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+	<soapenv:Body>
+		<dp:request
+			xmlns:dp="http://www.datapower.com/schemas/management">
+			<dp:get-config class="UserGroup" name="student01_developer_group"/>
+		</dp:request>		
+	</soapenv:Body>
+</soapenv:Envelope>
+
+RMI
+DeviceiInfo:
+curl -H "Content-Type: text/xml" --data-binary @getdeviceinfo.xml https://192.168.100.201:5550/service/mgmt/amp/3.0 -u sysadmin:sysadminpassw0rd -k
+	<?xml version="1.0" encoding="UTF-8"?>
+	<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+	<soapenv:Body>
+			<dp:GetDeviceInfoRequest xmlns:dp="http://www.datapower.com/schemas/appliance/management/3.0"/>
+	</soapenv:Body>
+	</soapenv:Envelope> 
+
+Domain status:
+curl -H "Content-Type: text/xml" --data-binary @getdomainstatus.xml https://192.168.100.201:5550/service/mgmt/amp/3.0 -u sysadmin:sysadminpassw0rd -k
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+<soapenv:Body>
+    <dp:GetDomainStatusRequest xmlns:dp="http://www.datapower.com/schemas/appliance/management/3.0">
+	<dp:Domain>student01_domain</dp:Domain>
+    </dp:GetDomainStatusRequest>
+</soapenv:Body>
+</soapenv:Envelope> 
+

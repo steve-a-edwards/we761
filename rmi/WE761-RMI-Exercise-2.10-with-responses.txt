@@ -1,0 +1,152 @@
+WE761 - 2.9.REST management
+
+Inspect active users:
+GET
+https://192.168.100.201:5554/mgmt/status/default/ActiveUsers
+RESPONSE
+{
+        "_links" : {
+        "self" : {"href" : "/mgmt/status/default/ActiveUsers"}, 
+        "doc" : {"href" : "/mgmt/docs/status/ActiveUsers"}}, 
+        "ActiveUsers" : [{
+        "session" : 12, 
+        "name" : "sysadmin", 
+        "connection" : "web-gui", 
+        "address" : "192.168.100.1", 
+        "login" : "Mon May 8 07:04:24 2023", 
+        "domain" : "default"}, {
+        "session" : 26, 
+        "name" : "student01", 
+        "connection" : "secure-shell", 
+        "address" : "192.168.100.1", 
+        "login" : "Mon May 8 08:19:00 2023", 
+        "domain" : "default"}, {
+        "session" : 46, 
+        "name" : "sysadmin", 
+        "connection" : "saml-artifact", 
+        "address" : "192.168.100.1", 
+        "login" : "Mon May 8 10:50:16 2023", 
+        "domain" : "default"}, {
+        "session" : 50, 
+        "name" : "sysadmin", 
+        "connection" : "saml-artifact", 
+        "address" : "192.168.100.1", 
+        "login" : "Mon May 8 10:59:09 2023", 
+        "domain" : "default"}, {
+        "session" : 51, 
+        "name" : "sysadmin", 
+        "connection" : "saml-artifact", 
+        "address" : "192.168.100.1", 
+        "login" : "Mon May 8 10:59:19 2023", 
+        "domain" : "default"}, {
+        "session" : 60, 
+        "name" : "sysadmin", 
+        "connection" : "saml-artifact", 
+        "address" : "192.168.100.1", 
+        "login" : "Mon May 8 11:32:39 2023", 
+        "domain" : "default"}]}
+
+Inspect domains:
+GET
+https://192.168.100.201:5554/mgmt/domains/config/
+RESPONSE
+{
+        "_links" : {
+        "self" : {"href" : "/mgmt/domains/config/"}, 
+        "doc" : {"href" : "/mgmt/docs/config/domains"}}, 
+        "domain" : [{"name" : "default", 
+        "href" : "/mgmt/config/default/Domain/default"}, {"name" : "FLYServices", 
+        "href" : "/mgmt/config/default/Domain/FLYServices"}, {"name" : "student01_domain", 
+        "href" : "/mgmt/config/default/Domain/student01_domain"}, {"name" : "student01_import_domain", 
+        "href" : "/mgmt/config/default/Domain/student01_import_domain"}, {"name" : "student01_remote_domain", 
+        "href" : "/mgmt/config/default/Domain/student01_remote_domain"}, {"name" : "student95_domain", 
+        "href" : "/mgmt/config/default/Domain/student95_domain"}, {"name" : "student95_import_domain", 
+        "href" : "/mgmt/config/default/Domain/student95_import_domain"}, {"name" : "student95_remote_domain", 
+        "href" : "/mgmt/config/default/Domain/student95_remote_domain"}]}
+
+Inspect domain 'student01_domain'
+GET
+https://192.168.100.201:5554/mgmt/config/default/Domain/student01_domain
+RESPONSE
+{
+        "_links" : {
+        "self" : {"href" : "/mgmt/config/default/Domain/student01_domain"}, 
+        "doc" : {"href" : "/mgmt/docs/config/Domain"}}, 
+        "Domain" : {"name" : "student01_domain", 
+        "mAdminState" : "enabled", 
+        "UserSummary" : "Test domain for student account 01.", 
+        "NeighborDomain" : {"value": "default", 
+        "href" : "/mgmt/config/default/Domain/default"}, 
+        "FileMap" : {
+        "CopyFrom" : "on", 
+        "CopyTo" : "on", 
+        "Delete" : "on", 
+        "Display" : "on", 
+        "Exec" : "on", 
+        "Subdir" : "on"}, 
+        "ConfigMode" : "local", 
+        "ImportFormat" : "ZIP", 
+        "LocalIPRewrite" : "on", 
+        "MaxChkpoints" : 3}}
+
+Create new domain 'student01_REST_domain':
+POST
+https://192.168.100.201:5554/mgmt/config/default/Domain
+{
+        "Domain" : {"name" : "student01_REST_domain", 
+        "mAdminState" : "enabled", 
+        "UserSummary" : "REST-added domain for student account for student account 01.", 
+        "NeighborDomain" : {"value": "default", 
+        "href" : "/mgmt/config/default/Domain/default"}, 
+        "FileMap" : {
+        	"CopyFrom" : "on", 
+        	"CopyTo" : "on", 
+        	"Delete" : "on", 
+        	"Display" : "on", 
+        	"Exec" : "on", 
+        	"Subdir" : "on"}, 
+        	"ConfigMode" : "local", 
+        	"ImportFormat" : "ZIP", 
+        	"LocalIPRewrite" : "on", 
+        	"MaxChkpoints" : 3}
+}
+RESPONSE
+{
+        "_links" : {
+        "self" : {"href" : "/mgmt/config/default/Domain"}, 
+        "doc" : {"href" : "/mgmt/docs/config/Domain"}, 
+        "location" : {"href" : "/mgmt/config/default/Domain/student01_REST_domain"}}, 
+        "student01_REST_domain" : "Configuration was created."}
+
+Modify domain 'student01_REST_domain':
+PUT
+https://192.168.100.201:5554/mgmt/config/default/Domain/student01_REST_domain/UserSummary
+{"UserSummary" : "MODIFIED."}
+RESPONSE
+{
+        "_links" : {
+        "self" : {"href" : "/mgmt/config/default/Domain/student01_REST_domain/UserSummary"}, 
+        "doc" : {"href" : "/mgmt/docs/config/Domain/UserSummary"}}, 
+        "UserSummary" : "Property was updated."}
+
+Save config:
+POST
+https://192.168.100.201:5554/mgmt/actionqueue/default
+{"SaveConfig" : ""}
+RESPONSE
+{
+        "_links" : {
+        "self" : {"href" : "/mgmt/actionqueue/default"}, 
+        "doc" : {"href" : "/mgmt/docs/actionqueue"}}, 
+        "SaveConfig" : "Operation completed.", 
+        "script-log" : ""}
+
+Delete domain 'student01_REST_domain' (remove body from previous request):
+DELETE
+https://192.168.100.201:5554/mgmt/config/default/Domain/student01_REST_domain
+RESPONSE
+{
+        "_links" : {
+        "self" : {"href" : "/mgmt/config/default/Domain/student01_REST_domain"}, 
+        "doc" : {"href" : "/mgmt/docs/config/Domain"}}, 
+        "student01_REST_domain" : "Configuration was deleted."}

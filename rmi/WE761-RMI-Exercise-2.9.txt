@@ -1,0 +1,50 @@
+WE761 - 2.9.REST management
+
+Inspect active users:
+GET
+https://192.168.100.201:5554/mgmt/status/default/ActiveUsers
+
+Inspect domains:
+GET
+https://192.168.100.201:5554/mgmt/domains/config/
+
+Inspect domain 'student01_domain'
+GET
+https://192.168.100.201:5554/mgmt/config/default/Domain/student01_domain
+
+Create new domain 'student01_REST_domain':
+POST
+https://192.168.100.201:5554/mgmt/config/default/Domain
+{
+        "Domain" : {"name" : "student01_REST_domain", 
+        "mAdminState" : "enabled", 
+        "UserSummary" : "REST-added domain for student account for student account 01.", 
+        "NeighborDomain" : {"value": "default", 
+        "href" : "/mgmt/config/default/Domain/default"}, 
+        "FileMap" : {
+        	"CopyFrom" : "on", 
+        	"CopyTo" : "on", 
+        	"Delete" : "on", 
+        	"Display" : "on", 
+        	"Exec" : "on", 
+        	"Subdir" : "on"}, 
+        	"ConfigMode" : "local", 
+        	"ImportFormat" : "ZIP", 
+        	"LocalIPRewrite" : "on", 
+        	"MaxChkpoints" : 3}
+}
+
+Modify domain 'student01_REST_domain':
+PUT
+https://192.168.100.201:5554/mgmt/config/default/Domain/student01_REST_domain/UserSummary
+{"UserSummary" : "MODIFIED."}
+
+Save config:
+POST
+https://192.168.100.201:5554/mgmt/actionqueue/default
+{"SaveConfig" : ""}
+
+Delete domain 'student01_REST_domain' (remove body from previous request):
+DELETE
+https://192.168.100.201:5554/mgmt/config/default/Domain/student01_REST_domain
+
