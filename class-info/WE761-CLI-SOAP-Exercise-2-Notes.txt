@@ -50,10 +50,11 @@ cd /home/localuser/labfiles/dp/mgmtInterface/
 curl -H "Content-Type: text/xml" --data-binary @set-config.xml https://192.168.100.201:5550/service/mgmt/current -u sysadmin:sysadminpassw0rd -k
 
 Page 2-31  IGNORE using browser on DPAdmin
-_3 this section only gets you to use the above to see current config.
+_3 this section only gets you to use the above to see current config without using the DPAdmin service,
+but by going to XMI directly.
 Instead, change file 
 get-config.xml
-/home/localuser/labfiles/dp/XML
+/home/localuser/labfiles/dp/XML (this) is not the folder the students will use for normal XMI exercise
 to replace "<!-- Insert SOAP request here-->"
 with "<dp:get-config class="UserGroup" name="student01_developer_group"/>"
 
@@ -67,6 +68,10 @@ with "<dp:get-config class="UserGroup" name="student01_developer_group"/>"
 		</dp:request>		
 	</soapenv:Body>
 </soapenv:Envelope>
+then use in Ubuntu terminal window:
+cd /home/localuser/labfiles/dp/mgmtInterface/
+curl -H "Content-Type: text/xml" --data-binary @get-config.xml https://192.168.100.201:5550/service/mgmt/current -u sysadmin:sysadminpassw0rd -k
+
 
 RMI
 DeviceiInfo:

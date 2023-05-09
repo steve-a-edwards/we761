@@ -1,50 +1,67 @@
-WE761 - 2.9.REST management
+WE761 - Exercise 2.9.REST management
+Alternative approach to exercise notes using curl.
 
-Inspect active users:
-GET
+======================
+__ 2.Issue a REST request to retrieve a list of the currently connected users.
+
+curl -X GET -u sysadmin:sysadminpassw0rd -k \
 https://192.168.100.201:5554/mgmt/status/default/ActiveUsers
 
-Inspect domains:
-GET
+======================
+__ 3.Issue a REST request to get a list of domains in the gateway
+
+curl -X GET -u sysadmin:sysadminpassw0rd -k \
 https://192.168.100.201:5554/mgmt/domains/config/
 
-Inspect domain 'student01_domain'
-GET
+======================
+__ 4.Retrieve the configuration for your student domain studentnn_domain.
+
+curl -X GET -u sysadmin:sysadminpassw0rd -k \
 https://192.168.100.201:5554/mgmt/config/default/Domain/student01_domain
 
-Create new domain 'student01_REST_domain':
-POST
-https://192.168.100.201:5554/mgmt/config/default/Domain
-{
-        "Domain" : {"name" : "student01_REST_domain", 
-        "mAdminState" : "enabled", 
-        "UserSummary" : "REST-added domain for student account for student account 01.", 
-        "NeighborDomain" : {"value": "default", 
-        "href" : "/mgmt/config/default/Domain/default"}, 
+======================
+__ 5.Create a domain
+
+curl -X POST -u sysadmin:sysadminpassw0rd -k \
+https://192.168.100.201:5554/mgmt/config/default/Domain \
+--data-binary \
+'{
+        "Domain" : {"name" : "student01_REST_domain",
+        "mAdminState" : "enabled",
+        "UserSummary" : "REST-added domain for student account for student account 01.",
+        "NeighborDomain" : {"value": "default",
+        "href" : "/mgmt/config/default/Domain/default"},
         "FileMap" : {
-        	"CopyFrom" : "on", 
-        	"CopyTo" : "on", 
-        	"Delete" : "on", 
-        	"Display" : "on", 
-        	"Exec" : "on", 
-        	"Subdir" : "on"}, 
-        	"ConfigMode" : "local", 
-        	"ImportFormat" : "ZIP", 
-        	"LocalIPRewrite" : "on", 
+        	"CopyFrom" : "on",
+        	"CopyTo" : "on",
+        	"Delete" : "on",
+        	"Display" : "on",
+        	"Exec" : "on",
+        	"Subdir" : "on"},
+        	"ConfigMode" : "local",
+        	"ImportFormat" : "ZIP",
+        	"LocalIPRewrite" : "on",
         	"MaxChkpoints" : 3}
-}
+}'
 
-Modify domain 'student01_REST_domain':
-PUT
-https://192.168.100.201:5554/mgmt/config/default/Domain/student01_REST_domain/UserSummary
-{"UserSummary" : "MODIFIED."}
+=====================
+__ 7.Modify the UserSummary for your new REST domain.
 
-Save config:
-POST
-https://192.168.100.201:5554/mgmt/actionqueue/default
-{"SaveConfig" : ""}
+curl -X PUT -u sysadmin:sysadminpassw0rd -k \
+https://192.168.100.201:5554/mgmt/config/default/Domain/student01_REST_domain/UserSummary \
+--data-binary \
+'{ "UserSummary" : "Modified summary for domain student01_REST_domain."}'
 
-Delete domain 'student01_REST_domain' (remove body from previous request):
-DELETE
+======================
+__ 9.Save the current configuration.
+
+curl -X POST -u sysadmin:sysadminpassw0rd -k \
+https://192.168.100.201:5554/mgmt/actionqueue/default \
+--data-binary \
+'{"SaveConfig" : ""}'
+
+=====================
+__ 11.Delete the REST domain
+
+curl -X DELETE -u sysadmin:sysadminpassw0rd -k \
 https://192.168.100.201:5554/mgmt/config/default/Domain/student01_REST_domain
-
