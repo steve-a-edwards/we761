@@ -1,0 +1,293 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- 
+This can be downloaded to the target Linux device (WE761)
+by opening a terminal window on that device and running
+the following commands:
+
+mv /var/www/html/dp/searchConfig.html /var/www/html/dp/searchConfig-ORG.html
+curl https://raw.githubusercontent.com/steve-a-edwards/we761/master/searchConfig.html -o /var/www/html/dp/searchConfig.html
+
+Replaces searchConfig.html
+in Ubuntu folder /var/www/html/dp
+for exercise 2.5, etc.
+and provides initial values for entry fields ip addresses, etc..
+
+ -->
+
+
+<html>
+<head>
+<title>Search DataPower configuration using XML Management Interface</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="GENERATOR" content="Rational Application Developer">
+
+<style>
+	input.btn {
+  	color:DDE2FB;
+  	font: bold 80% Verdana;
+  	border:1px solid; 
+}
+</style>
+
+</head>
+
+<SCRIPT language="JavaScript">
+	function submitform(formObj) {
+	  var DPHost = formObj.DPServiceHost_Text.value;
+	  var DPPort = formObj.DPServicePort_Text.value;
+	  var DPURI = '/Search/';
+	  var AppURL = 'https://' + DPHost + ':' + DPPort + DPURI
+	  //alert("AppURL" + AppURL);
+	  formObj.action = AppURL;
+	  formObj.submit();
+	}
+
+</SCRIPT>
+
+<body>
+
+<h2 align="center">Search DataPower config using XML Management Interface</h2><p/>
+<form method="post" name="myform">
+ <table border="0" align="center">
+	<tbody>
+		<tr><td colspan="2">Enter information below to obtain DataPower configuration information for XML Management Interface requests.<br>
+                    After pressing the 'Submit' button, if 'Authentical Required' dialog appears enter<br>
+                    User Name: <b>sysadmin</b>, Password: <b>sysadminpassw0rd</b>.
+</td></tr>
+		<tr>
+			<td colspan="2"><h3>Connection Information</h3></td>
+		</tr>
+		<tr>
+			<td>DP XML Management Host Name</td>
+			<td><input type="text" name="DPHost_Text" size="20" value="192.168.100.201"></td>
+		</tr>
+		<tr>
+			<td>DP XML Management Port</td>
+			<td><input type="text" name="DPPort_Text" size="20" value="5550"></td>
+		</tr>
+		<tr>
+			<td>DP Service Host</td>
+			<td><input type="text" name="DPServiceHost_Text" size="20" value="192.168.100.201"></td>
+		</tr>
+		<tr>
+			<td>DP Service Port</td>
+			<td><input type="text" name="DPServicePort_Text" size="20"  value="10011"></td>
+		</tr>
+		<tr>
+			<td colspan="2">&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="2"><h3>Search Information</h3></td>
+		</tr>
+        <tr>
+			<td>Domain</td>
+			<td><input type="text" name="Domain_Text" size="20" value="default"></td>
+		</tr>
+		<tr>
+			<td>Search for: </td>
+			<td><select name="SearchItem_Select">
+				<option value="0" selected>Select  ...</option>
+	  <option value="AAAPolicy" >AAAPolicy</option>
+      <option value="AccessControlList" >AccessControlList</option>
+      <option value="AppSecurityPolicy" >AppSecurityPolicy</option>
+      <option value="CertMonitor" >CertMonitor</option>
+      <option value="CompactFlash" >CompactFlash</option>
+      <option value="CompileOptionsPolicy" >CompileOptionsPolicy</option>
+      <option value="ConfigDeploymentPolicy" >ConfigDeploymentPolicy</option>
+      <option value="CountMonitor" >CountMonitor</option>
+      <option value="CRLFetch" >CRLFetch</option>
+      <option value="CryptoCertificate" >CryptoCertificate</option>
+      <option value="CryptoFWCred" >CryptoValCred</option>
+      <option value="CryptoIdentCred" >CryptoIdentCred</option>
+      <option value="CryptoKerberosKDC" >CryptoKerberosKDC</option>
+      <option value="CryptoKerberosKeytab" >CryptoKerberosKeytab</option>
+      <option value="CryptoKey" >CryptoKey</option>
+      <option value="CryptoProfile" >CryptoProfile</option>
+      <option value="CryptoSSKey" >CryptoSSKey</option>
+      <option value="CryptoValCred" >CryptoValCred</option>
+      <option value="Domain" >Domain</option>
+      <option value="DNSNameService" >DNSNameService</option>
+      <option value="DocumentCryptoMap" >DocumentCryptoMap</option>
+      <option value="DurationMonitor" >DurationMonitor</option>
+      <option value="ErrorReportSettings" >ErrorReportSettings</option>
+      <option value="EthernetInterface" >EthernetInterface</option>
+      <option value="FilterAction" >FilterAction</option>
+      <option value="FTPFilePollerSourceProtocolHandler" >FTPFilePollerSourceProtocolHandler</option>
+      <option value="FTPQuoteCommands" >FTPQuoteCommands</option>
+      <option value="FTPServerSourceProtocolHandler">FTPServerSourceProtocolHandler</option>
+      <option value="HostAlias" >HostAlias</option>
+      <option value="HTTPInputConversionMap" >HTTPInputConversionMap</option>
+      <option value="HTTPService" >HTTPService</option>
+      <option value="HTTPSourceProtocolHandler" >HTTPSourceProtocolHandler</option>
+      <option value="HTTPSSourceProtocolHandler" >HTTPSSourceProtocolHandler</option>
+      <option value="HTTPUserAgent" >HTTPUserAgent</option>
+      <option value="ImportPackage" >ImportPackage</option>
+      <option value="IMSConnect" >IMSConnect</option>
+      <option value="IncludeConfig" >IncludeConfig</option>
+      <option value="IScsiChapConfig" >IScsiChapConfig</option>
+      <option value="IScsiHBAConfig" >IScsiHBAConfig</option>
+      <option value="IScsiTargetConfig" >IScsiTargetConfig</option>
+      <option value="IScsiVolumeConfig" >IScsiVolumeConfig</option>
+      <option value="LoadBalancerGroup" >LoadBalancerGroup</option>
+      <option value="LogLabel" >LogLabel</option>
+      <option value="LogTarget" >LogTarget</option>
+      <option value="Matching" >Matching</option>
+      <option value="MessageMatching" >MessageMatching</option>
+      <option value="MessageType" >MessageType</option>
+      <option value="MgmtInterface" >MgmtInterface</option>
+      <option value="MQGW" >MQGW</option>
+      <option value="MQhost" >MQhost</option>
+      <option value="MQproxy" >MQproxy</option>
+      <option value="MQQM" >MQQM</option>
+      <option value="MQQMGroup" >MQQMGroup</option>
+      <option value="MQSourceProtocolHandler" >MQSourceProtocolHandler</option>
+      <option value="MTOMPolicy" >MTOMPolicy</option>
+      <option value="MultiProtocolGateway">MultiProtocolGateway</option>>
+      <option value="NameValueProfile" >NameValueProfile</option>
+      <option value="Netegrity" >Netegrity</option>
+      <option value="NetworkSettings" >NetworkSettings</option>
+      <option value="NFSClientSettings" >NFSClientSettings</option>
+      <option value="NFSDynamicMounts" >NFSDynamicMounts</option>
+      <option value="NFSFilePollerSourceProtocolHandler" >NFSFilePollerSourceProtocolHandler</option>
+      <option value="NFSStaticMount" >NFSStaticMount</option>
+      <option value="NTPService" >NTPService</option>
+      <option value="PeerGroup" >PeerGroup</option>
+      <option value="PolicyAttachments" >PolicyAttachments</option>
+      <option value="PolicyParameters" >PolicyParameters</option>
+      <option value="ProcessingMetadata" >ProcessingMetadata</option>
+      <option value="RADIUSSettings" >RADIUSSettings</option>
+      <option value="RaidVolume" >RaidVolume</option>
+      <option value="RBMSettings" >RBMSettings</option>
+      <option value="SchemaExceptionMap" >SchemaExceptionMap</option>
+      <option value="ShellAlias" >ShellAlias</option>
+      <option value="SimpleCountMonitor" >SimpleCountMonitor</option>
+      <option value="SLMAction" >SLMAction</option>
+      <option value="SLMCredClass" >SLMCredClass</option>
+      <option value="SLMPolicy" >SLMPolicy</option>
+      <option value="SLMRsrcClass" >SLMRsrcClass</option>
+      <option value="SLMSchedule" >SLMSchedule</option>
+      <option value="SNMPSettings" >SNMPSettings</option>
+      <option value="SQLDataSource" >SQLDataSource</option>
+      <option value="SSHService" >SSHService</option>
+      <option value="SSLProxyProfile" >SSLProxyProfile</option>
+      <option value="SSLProxyService" >SSLProxyService</option>
+      <option value="StatelessTCPSourceProtocolHandler">StatelessTCPSourceProtocolHandler</option>
+      <option value="Statistics" >Statistics</option>
+      <option value="SystemSettings"  >SystemSettings</option>
+      <option value="StylePolicy" >StylePolicy</option>
+      <option value="StylePolicyAction" >StylePolicyAction</option>
+      <option value="StylePolicyRule" >StylePolicyRule</option>
+      <option value="TAM" >TAM</option>
+      <option value="TCPProxyService" >TCPProxyService</option>
+      <option value="TelnetService" >TelnetService</option>
+      <option value="TFIMEndpoint" >TFIMEndpoint</option>
+      <option value="Throttler" >Throttler</option>
+      <option value="TibcoEMSServer" >TibcoEMSServer</option>
+      <option value="TibcoEMSSourceProtocolHandler" >TibcoEMSSourceProtocolHandler</option>
+      <option value="TimeSettings" >TimeSettings</option>
+      <option value="UDDIRegistry" >UDDIRegistry</option>
+      <option value="UDDISubscription" >UDDISubscription</option>
+      <option value="URLMap" >URLMap</option>
+      <option value="URLRefreshPolicy" >URLRefreshPolicy</option>
+      <option value="URLRewritePolicy" >URLRewritePolicy</option>
+      <option value="User" >User</option>
+      <option value="UserGroup" >UserGroup</option>
+      <option value="WebAppErrorHandlingPolicy" >WebAppErrorHandlingPolicy</option>
+      <option value="WebAppFW" >WebAppFW</option>
+      <option value="WebAppRequest" >WebAppRequest</option>
+      <option value="WebAppResponse" >WebAppResponse</option>
+      <option value="WebAppSessionPolicy" >WebAppSessionPolicy</option>
+      <option value="WebGUI" >WebGUI</option>
+      <option value="WebServiceMonitor" >WebServiceMonitor</option>
+      <option value="WebServicesAgent" >WebServicesAgent</option>
+      <option value="WebSphereJMSServer" >WebSphereJMSServer</option>
+      <option value="WebSphereJMSSourceProtocolHandler" >WebSphereJMSSourceProtocolHandler</option>
+      <option value="WSEndpointRewritePolicy" >WSEndpointRewritePolicy</option>
+      <option value="WSGateway" >WSGateway</option>
+      <option value="WSRRServer" >WSRRServer</option>
+      <option value="WSRRSubscription" >WSRRSubscription</option>
+      <option value="WSStylePolicy" >WSStylePolicy</option>
+      <option value="WSStylePolicyRule" >WSStylePolicyRule</option>
+      <option value="XACMLPDP" >XACMLPDP</option>
+      <option value="XMLFirewallService" >XMLFirewallService</option>
+      <option value="XMLManager" >XMLManager</option>
+      <option value="xmltrace" >xmltrace</option>
+      <option value="XPathRoutingMap" >XPathRoutingMap</option>
+      <option value="XSLCoprocService" >XSLCoprocService</option>
+      <option value="XSLProxyService" >XSLProxyService</option>
+      <option value="XTCProtocolHandler" >XTCProtocolHandler</option>
+	</select></td>
+		</tr>
+		<tr>
+			<td>Object name</td>
+			<td><input type="text" name="ObjectName_Text" size="20"></td>
+		</tr>
+		<tr>
+			<td colspan="2">&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center"><input type="submit" name="Submit_Bttn" value="Submit" onclick="submitform(document.myform)" class="btn"></td>
+		</tr>
+	</tbody>
+  </table>
+</form>
+<p/>
+<hr/>
+Modified version of the form to focus on the entry of the settings of interest: <b><i>Search Information</i></b><p/>
+An alternative to this form is to use cURL, and the code to do this may be seen by 'Viewing Page Source'<br/>
+at the bottom of the html.
+<hr/>
+Improved version: Steve Edwards, May 2023.
+<p/>
+<!-- 
+WE761 - Exercise 2.5.Test the DPAdmin multi-protocol gateway service
+p 2-27
+
+This is an alternative to using curl instead of the browser.
+
+Open terminal window on Ubuntu desktop and enter the following
+curl to send a message to the DPAdmin mpgw that you have set up
+in Exercise 2.4.
+DPAdmin receives form data constructs an XMI message which is sent
+to the in-built XMI DataPower service.
+========================================================================
+The following replaces Exercise 2.5.
+====
+curl -X POST \
+-F 'DPHost_Text=192.168.100.201' \
+-F 'DPPort_Text=5550' \
+-F 'DPServiceHost_Text=192.168.100.201' \
+-F 'DPServicePort_Text=10011' \
+-F 'Domain_Text=default' \
+-F 'SearchItem_Select=User' \
+-F 'ObjectName_Text=student01' \
+-k -u sysadmin:sysadminpassw0rd \
+https://192.168.100.201:10011/Search/
+
+The above example returns with the configuration of the
+'User' object with the name 'student01'.
+========================================================================
+p 2-31 The section entitled:
+"__ 3.Use the browser to submit a request to the DPAdmin multi-protocol
+gateway service to view the user group configuration":
+instead of using the browser approach, as above, in an Ubuntu terminal
+enter the following curl:
+
+curl -X POST \
+-F 'DPHost_Text=192.168.100.201' \
+-F 'DPPort_Text=5550' \
+-F 'DPServiceHost_Text=192.168.100.201' \
+-F 'DPServicePort_Text=10011' \
+-F 'Domain_Text=default' \
+-F 'SearchItem_Select=UserGroup' \
+-F 'ObjectName_Text=student01_developer_group' \
+-k -u sysadmin:sysadminpassw0rd \
+https://192.168.100.201:10011/Search/
+
+The above example returns with the configuration of the
+'User' object with the name 'student01_developer_group'.
+========================================================================
+ -->  
+
+</body>
+</html>
